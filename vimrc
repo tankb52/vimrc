@@ -32,6 +32,10 @@ set visualbell
 "文件关闭后依然维护撤销历史纪录
 "set undodir=~/.vim/undo
 "set undofile
+"设置备份文件backup
+set nobackup
+set backupdir=~/.vimbackup/
+au BufWritePre * :call writefile(getline('1', '$'), &backupdir.substitute(expand("%:p"), '[/\\:]', '%', 'g').'_'.strftime("%Y%m%d%H"), 'b')
 "根据文件自动切换目录
 set autochdir
 "打开拼写检查并忽略中文
@@ -107,33 +111,15 @@ hi statusline guibg=gray guifg=black
 set statusline=
 set statusline +=%4*%n%m%r%h%w%*
 set statusline +=%F
-set statusline +=%=%1*[FORMAT=%2*%{&ff}:%{&fenc!=''?&fenc:&enc}%1*]
-set statusline +=%=[TYPE=%2*%Y%1*]
-set statusline +=%=%=[COL=%2*%03v%1*]
-set statusline +=%=[ROW=%2*%03l%1*/%3*%L(%p%%)%1*]
+set statusline +=%=%1*[%2*%{&ff}:%{&fenc!=''?&fenc:&enc}%1*]
+set statusline +=%=[%2*%Y%1*]
+set statusline +=%=[%2*%03v:%03l%1*/%3*%L(%p%%)%1*]
 set statusline +=%=%4*%w%h%r%m%n%*
 hi User1 guifg=gray
 hi User2 guifg=green
 hi User3 guifg=white
 hi User4 guifg=red
 hi User5 guifg=#a0ee40
-"""""""""""""""""""""另一个配置"""""""""""""""""""""
-"set statusline=
-"set statusline +=%1*\ %n\ %*            "buffer number
-"set statusline +=%5*%{&ff}%*            "file format
-"set statusline +=%3*%y%*                "file type
-"set statusline +=%4*\ %<%F%*            "full path
-"set statusline +=%2*%m%*                "modified flag
-"set statusline +=%1*%=%5l%*             "current line
-"set statusline +=%2*/%L\ %*            "total lines
-"set statusline +=%3*%p%%                "%%%
-"set statusline +=%1*%4v\ %*             "virtual column number
-"set statusline +=%2*0x%04B\ %*          "character under cursor
-"hi User1 guifg=#eea040 guibg=#222222
-"hi User2 guifg=#dd3333 guibg=#222222
-"hi User3 guifg=#ff66ff guibg=#222222
-"hi User4 guifg=#a0ee40 guibg=#222222
-"hi User5 guifg=#eeee40 guibg=#222222
 """""""""""""""""""ywvim设置"""""""""""""""""""""""""""""""""""""""""""""
 let g:ywvim_ims=[ 
             \['wb98', '五笔98', 'wubi98.ywvim'], 
@@ -179,7 +165,18 @@ au BufRead,BufNewFile *.md5 	setfiletype text
 vmap <C-C> "+y
 nmap <C-P> "+gP
 map  tn  <Esc>:tabnew<CR>
-""""""""""""""""set guifont/gfn查看当前字体"""""""""""""""""""""""""""
+nnoremap <esc> :nohl<cr> 搜索完后按esc去以掉高亮
+"""""""""""""""""""""""光标居中"""""""""""""""""""""""""""""
+nnoremap <esc> :noh<cr>zz
+noremap j gjzz
+noremap k gkzz
+noremap n nzz
+noremap <s-n> <s-n>zz
+"noremap * *zz
+"noremap # #zz
+"noremap <c-o> <c-o>zz
+"noremap <c-i> <c-i>zz
+"""""""""""""""set guifont/gfn查看当前字体"""""""""""""""""""""""""""
  if has('gui_running')
     if has("win16") || has("win32") || has("win95") || has("win64")
         set guifont=Consolas:h14:cANSI:qDRAFT,Courier_New:h14:cANSI:qDRAFT
@@ -260,22 +257,22 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 "au Syntax * RainbowParenthesesLoadChevrons 
 """"""""""""""""""VIM-Plug""""""""""""""""
 call plug#begin()
-	Plug 'mhinz/vim-startify'
-	Plug 'jiangmiao/auto-pairs'
-	Plug 'plasticboy/vim-markdown'
-	Plug 'godlygeek/tabular'
-	Plug 'hotoo/pangu.vim'
-	Plug 'tpope/vim-surround' 
-	Plug 'embear/vim-foldsearch'
-	Plug 'chxuan/change-colorscheme' 
-	Plug 'vim-voom/VOoM' 
-	Plug 'iamcco/mathjax-support-for-mkdp'
-	Plug 'iamcco/markdown-preview.vim'
-	Plug 'luochen1990/rainbow'
-	Plug 'vim-scripts/fcitx.vim' 
-	Plug 'mbbill/fencview'
-	Plug 'yegappan/mru'
-	Plug 'vim-scripts/ywvim'
+	Plug 'mhinz/vim-startify'			"vim 启动页
+	Plug 'jiangmiao/auto-pairs'			"成对符号自动补全
+	Plug 'plasticboy/vim-markdown'			"markdown 工具
+	Plug 'godlygeek/tabular'			"表格格式化工具
+	Plug 'hotoo/pangu.vim'				"中文文本排版优化
+	Plug 'tpope/vim-surround'			"选中文本添加成对引号
+	Plug 'embear/vim-foldsearch'			"搜索并折叠/反折叠对应文本
+	Plug 'chxuan/change-colorscheme' 		"自动加载主题并切换
+	Plug 'vim-voom/VOoM' 				"预览并在侧栏提供目录
+	Plug 'iamcco/mathjax-support-for-mkdp'		"Markdown 数学工式支持
+	Plug 'iamcco/markdown-preview.vim'		"Markdown 在浏览器中预览
+	Plug 'luochen1990/rainbow'			"彩虹括号
+	Plug 'vim-scripts/fcitx.vim' 			"vim fcitx 兼容插件
+	Plug 'mbbill/fencview'				"格式检测
+	Plug 'yegappan/mru'				"最近打开文件
+	Plug 'vim-scripts/ywvim'			"内置输入法
 call plug#end()
 """"""""""vim-Markdown""""""""""
 let g:vim_markdown_folding_disabled = 1
