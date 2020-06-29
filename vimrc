@@ -34,8 +34,10 @@ set visualbell
 "set undofile
 "设置备份文件backup
 set nobackup
-set backupdir=~/.vimbackup/
+set backupdir=$HOME/.vimbackup/
 au BufWritePre * :call writefile(getline('1', '$'), &backupdir.substitute(expand("%:p"), '[/\\:]', '%', 'g').'_'.strftime("%Y%m%d%H"), 'b')
+"设置swapfile
+set directory=$HOME/.vimswap/,/tmp//
 "根据文件自动切换目录
 set autochdir
 "打开拼写检查并忽略中文
@@ -60,16 +62,16 @@ set whichwrap=b,s,<,>,[,],h,l
 set breakat=
 "设定不换行
 set wrap
-"换行时对齐右边的距离
-set wrapmargin =2
 "不在单词中间断行
 set linebreak
 "设置默认首行缩进宽度（shiftwidth）
 set shiftwidth=4
 "设置文本宽度（textwidth）强行换行，可按J合并行
-set textwidth=78
+"set textwidth=78
+"不设置 textwidth 时保证不自动折行，见http://m.newsmth.net/article/VIM/45256
+let g:leave_my_textwidth_alone=1
 "认定窗口大小
-set lines=36 columns=84
+set lines=36 columns=108
 "设定帮助语言
 set helplang=cn
 "GUI 设置，:help guioptions"查看
@@ -165,9 +167,9 @@ au BufRead,BufNewFile *.md5 	setfiletype text
 vmap <C-C> "+y
 nmap <C-P> "+gP
 map  tn  <Esc>:tabnew<CR>
-nnoremap <esc> :nohl<cr> 搜索完后按esc去以掉高亮
+"nnoremap <esc> :nohl<cr> 	"搜索完后按esc去以掉高亮
 """""""""""""""""""""""光标居中"""""""""""""""""""""""""""""
-nnoremap <esc> :noh<cr>zz
+nnoremap <esc> :nohl<cr>zz
 noremap j gjzz
 noremap k gkzz
 noremap n nzz
@@ -180,6 +182,7 @@ noremap <s-n> <s-n>zz
  if has('gui_running')
     if has("win16") || has("win32") || has("win95") || has("win64")
         set guifont=Consolas:h14:cANSI:qDRAFT,Courier_New:h14:cANSI:qDRAFT
+	set guifontwide=NSimSun:h14
     else
         set guifont=Bitstream\ Vera\ Sans\ Mono\ 14
     endif
@@ -266,8 +269,7 @@ call plug#begin()
 	Plug 'embear/vim-foldsearch'			"搜索并折叠/反折叠对应文本
 	Plug 'chxuan/change-colorscheme' 		"自动加载主题并切换
 	Plug 'vim-voom/VOoM' 				"预览并在侧栏提供目录
-	Plug 'iamcco/mathjax-support-for-mkdp'		"Markdown 数学工式支持
-	Plug 'iamcco/markdown-preview.vim'		"Markdown 在浏览器中预览
+	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 	Plug 'luochen1990/rainbow'			"彩虹括号
 	Plug 'vim-scripts/fcitx.vim' 			"vim fcitx 兼容插件
 	Plug 'mbbill/fencview'				"格式检测
