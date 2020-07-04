@@ -13,7 +13,7 @@ highlight Normal  guibg=NONE ctermbg=none
 if has("gui_running")
     colorscheme wombat256
 else
-    colorscheme desert
+    colorscheme vividchalk
 endif
 "工作在不兼容模式下
 set nocp
@@ -21,7 +21,7 @@ set nocp
 set ruler
 "打开行号和相对行号rnu
 set nu
-set relativenumber
+"set relativenumber
 "高亮当前行和当前列
 "set cursorcolumn
 set cursorline
@@ -84,7 +84,7 @@ set guioptions=imtrb
 "显示不可见符号
 "set list
 "set invlist
-"用|.代替Tab符号
+"特殊符号显示效果
 set listchars=tab:\|\.,eol:$,trail:~
 "与widows共享剪贴板
 set clipboard+=unnamed
@@ -141,7 +141,7 @@ let g:ywvim_chinesecode = 1
 let g:ywvim_gb = 0
 let g:ywvim_preconv = 'g2b'
 let g:ywvim_conv = ''
-let g:ywvim_lockb = 1
+let g:ywvim_lockb = 0
 """"""""""""""""""""""""文件类型"""""""""""""""""""""""""""""""
 " 侦测文件类型 
 filetype on 
