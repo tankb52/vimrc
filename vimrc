@@ -114,9 +114,9 @@ set statusline=
 set statusline +=%4*%n%m%r%h%w%*
 set statusline +=%F
 set statusline +=%=%1*[%2*%{&ff}:%{&fenc!=''?&fenc:&enc}%1*]
-set statusline +=%=[%2*%Y%1*]
-set statusline +=%=[%2*%03v:%03l%1*/%3*%L(%p%%)%1*]
-set statusline +=%=%4*%w%h%r%m%n%*
+set statusline +=[%2*%Y%1*]
+set statusline +=[%2*%03v:%03l%1*/%3*%L(%p%%)%1*]
+set statusline +=%4*%w%h%r%m%n%*
 hi User1 guifg=gray
 hi User2 guifg=green
 hi User3 guifg=white
