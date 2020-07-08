@@ -11,7 +11,7 @@ set termguicolors
 highlight Normal  guibg=NONE ctermbg=none
 "根据终端或GUI界面来选择不同的colorscheme
 if has("gui_running")
-    colorscheme wombat256
+    colorscheme janah
 else
     colorscheme vividchalk
 endif
@@ -71,7 +71,7 @@ set shiftwidth=4
 "不设置 textwidth 时保证不自动折行，见http://m.newsmth.net/article/VIM/45256
 let g:leave_my_textwidth_alone=1
 "认定窗口大小
-set lines=36 columns=108
+set lines=24 columns=88
 "设定帮助语言
 set helplang=cn
 "GUI 设置，:help guioptions"查看
@@ -167,6 +167,7 @@ au BufRead,BufNewFile *.md5 	setfiletype text
 vmap <C-C> "+y
 nmap <C-P> "+gP
 map  tn  <Esc>:tabnew<CR>
+nnoremap  txt  <Esc>:set filetype=txt<CR>
 "nnoremap <esc> :nohl<cr> 	"搜索完后按esc去以掉高亮
 """""""""""""""""""""""光标居中"""""""""""""""""""""""""""""
 nnoremap <esc> :nohl<cr>zz
@@ -276,6 +277,8 @@ call plug#begin()
 	Plug 'yegappan/mru'				"最近打开文件
 	Plug 'vim-scripts/ywvim'			"内置输入法
 call plug#end()
+""""""""""""""Startify""""""""""""""
+let g:startify_bookmarks = [ {'c': '~/.vim/vimrc'}]
 """"""""""vim-Markdown""""""""""
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_style_pythonic = 1
