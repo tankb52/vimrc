@@ -11,7 +11,9 @@ set termguicolors
 highlight Normal  guibg=NONE ctermbg=none
 "根据终端或GUI界面来选择不同的colorscheme
 if has("gui_running")
-    colorscheme janah
+    colorscheme wombat256
+    "根据文件类型，选择不同高亮
+    au BufRead,BufNewFile *.txt 	colorscheme janah
 else
     colorscheme vividchalk
 endif
