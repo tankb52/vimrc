@@ -13,6 +13,7 @@ highlight Normal  guibg=NONE ctermbg=none
 if has("gui_running")
     colorscheme wombat256
     "根据文件类型，选择不同高亮
+    autocmd ColorScheme janah highlight Normal ctermbg=235
     au BufRead,BufNewFile *.txt 	colorscheme janah
 else
     colorscheme vividchalk
@@ -70,6 +71,9 @@ set linebreak
 set shiftwidth=4
 "设置文本宽度（textwidth）强行换行，可按J合并行
 "set textwidth=78
+""设置每行超过80个字符后背景变色
+autocmd FileType * execute "setlocal colorcolumn=" . join(range(80,250), ',')
+highlight ColorColumn guibg=#303030 ctermbg=0
 "不设置 textwidth 时保证不自动折行，见http://m.newsmth.net/article/VIM/45256
 let g:leave_my_textwidth_alone=1
 "认定窗口大小
@@ -185,7 +189,7 @@ noremap <s-n> <s-n>zz
  if has('gui_running')
     if has("win16") || has("win32") || has("win95") || has("win64")
         set guifont=Consolas:h14:cANSI:qDRAFT,Courier_New:h14:cANSI:qDRAFT
-	set guifontwide=NSimSun:h14
+	set guifontwide=Microsoft\ Yahei\ Mono:h14
     else
         set guifont=Bitstream\ Vera\ Sans\ Mono\ 14
     endif
@@ -265,8 +269,8 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 call plug#begin()
 	Plug 'mhinz/vim-startify'			"vim 启动页
 	Plug 'jiangmiao/auto-pairs'			"成对符号自动补全
-	Plug 'plasticboy/vim-markdown'			"markdown 工具
 	Plug 'godlygeek/tabular'			"表格格式化工具
+	Plug 'plasticboy/vim-markdown'			"markdown 工具
 	Plug 'hotoo/pangu.vim'				"中文文本排版优化
 	Plug 'tpope/vim-surround'			"选中文本添加成对引号
 	Plug 'embear/vim-foldsearch'			"搜索并折叠/反折叠对应文本
@@ -278,6 +282,8 @@ call plug#begin()
 	Plug 'mbbill/fencview'				"格式检测
 	Plug 'yegappan/mru'				"最近打开文件
 	Plug 'vim-scripts/ywvim'			"内置输入法
+	Plug 'mhinz/vim-janah'				"颜色主题
+	Plug 'Yggdroot/indentLine'			"缩进线显示
 call plug#end()
 """"""""""""""Startify""""""""""""""
 let g:startify_bookmarks = [ {'c': '~/.vim/vimrc'}]
