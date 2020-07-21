@@ -290,7 +290,7 @@ call plug#begin()
 	Plug 'wsdjeg/ChineseLinter.vim', {'for': 'text'}	"中文文档语言规范检查
 call plug#end()
 """"""""""""""Startify""""""""""""""
-let g:startify_bookmarks = [ {'c': '~/.vim/vimrc'}]
+let g:startify_bookmarks = [ {'c': '~/.vim/vimrc'}, { 'n': '~/.config/nvim/init.vim' } ]
 """"""""""vim-Markdown""""""""""
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_style_pythonic = 1
