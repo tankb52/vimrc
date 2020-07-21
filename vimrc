@@ -4,11 +4,12 @@
 "推荐配色：
 "biogoo,calmar256-light,candycode,desert256,desertEx,inkpot,molokai,moria,mustang,navajo-night,peaksea,rdark,rootwater,settlemyer,tango2,tir_black,torte,vibrantink,vividchalk,wombat256,xoria256,zenburn
 "查看配色:color
-set t_Co=256
-set background=dark
 "打开真彩色支持
-set termguicolors
-highlight Normal  guibg=NONE ctermbg=none
+"set t_Co=256
+"set background=dark
+"if has('termguicolors')
+"    set termguicolors
+"endif
 "根据终端或GUI界面来选择不同的colorscheme
 if has("gui_running")
     colorscheme wombat256
@@ -29,7 +30,7 @@ set nu
 "set cursorcolumn
 set cursorline
 "历史记录 20 -1000
-set history=1000
+set history=500
 "可视化警告
 set visualbell
 "文件关闭后依然维护撤销历史纪录
@@ -72,7 +73,8 @@ set shiftwidth=4
 "设置文本宽度（textwidth）强行换行，可按J合并行
 "set textwidth=78
 ""设置每行超过80个字符后背景变色
-autocmd FileType * execute "setlocal colorcolumn=" . join(range(80,250), ',')
+set colorcolumn=81
+"let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn guibg=#303030 ctermbg=0
 "不设置 textwidth 时保证不自动折行，见http://m.newsmth.net/article/VIM/45256
 let g:leave_my_textwidth_alone=1
@@ -174,6 +176,7 @@ vmap <C-C> "+y
 nmap <C-P> "+gP
 map  tn  <Esc>:tabnew<CR>
 nnoremap  txt  <Esc>:set filetype=txt<CR>
+nnoremap  md  <Esc>:set filetype=markdown<CR>zR
 "nnoremap <esc> :nohl<cr> 	"搜索完后按esc去以掉高亮
 """""""""""""""""""""""光标居中"""""""""""""""""""""""""""""
 nnoremap <esc> :nohl<cr>zz
@@ -271,7 +274,7 @@ call plug#begin()
 	Plug 'jiangmiao/auto-pairs'			"成对符号自动补全
 	Plug 'godlygeek/tabular'			"表格格式化工具
 	Plug 'plasticboy/vim-markdown'			"markdown 工具
-	Plug 'hotoo/pangu.vim'				"中文文本排版优化
+	Plug 'hotoo/pangu.vim',{'for': 'text'}		"中文文本排版优化
 	Plug 'tpope/vim-surround'			"选中文本添加成对引号
 	Plug 'embear/vim-foldsearch'			"搜索并折叠/反折叠对应文本
 	Plug 'chxuan/change-colorscheme' 		"自动加载主题并切换
@@ -282,8 +285,9 @@ call plug#begin()
 	Plug 'mbbill/fencview'				"格式检测
 	Plug 'yegappan/mru'				"最近打开文件
 	Plug 'vim-scripts/ywvim'			"内置输入法
-	Plug 'mhinz/vim-janah'				"颜色主题
-	Plug 'Yggdroot/indentLine'			"缩进线显示
+	Plug 'mhinz/vim-janah', {'for': 'text'}	"颜色主题
+	Plug 'Yggdroot/indentLine'
+	Plug 'wsdjeg/ChineseLinter.vim', {'for': 'text'}	"中文文档语言规范检查
 call plug#end()
 """"""""""""""Startify""""""""""""""
 let g:startify_bookmarks = [ {'c': '~/.vim/vimrc'}]
